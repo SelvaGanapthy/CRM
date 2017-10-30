@@ -18,15 +18,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginCRM" />
-        <activity android:name=".NewLead"></activity>
+
+        <receiver android:name=".service.CallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".activities.LoginCRM" />
+        <activity android:name=".activities.NewLead" />
+        <activity android:name=".ss" />
+        <activity
+            android:name=".navigation.MainActivityNavigation"
+            android:label="@string/title_activity_main_navigation"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

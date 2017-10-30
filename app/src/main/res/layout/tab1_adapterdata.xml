@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#ee31c0"
+    android:elevation="5dp"
+    android:orientation="horizontal"
+    android:paddingBottom="1dp">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_Image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/default_acc"
+            app:civ_border_color="#455000"
+            app:civ_border_width="1dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:text="FINALISATION"
+
+            android:textColor="#e12c2c"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tab1_titletv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="serif"
+            android:text="LEAD 1"
+            android:textColor="#8618a3"
+            android:textSize="20dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tab1_timetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="55dp"
+            android:fontFamily="serif"
+            android:text="Today 6:20 PM"
+            android:textSize="15dp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/tab1_mgs_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="65dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/tab1_msgimg" />
+
+        <ImageView
+            android:id="@+id/tab1_call_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/tab1_callimg" />
+    </android.support.v7.widget.CardView>
+</LinearLayout>

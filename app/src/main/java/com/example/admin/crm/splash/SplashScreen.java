@@ -1,4 +1,4 @@
-package com.example.admin.crm;
+package com.example.admin.crm.splash;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.admin.crm.activities.LoginCRM;
+import com.example.admin.crm.R;
 
 import gr.net.maroulis.library.EasySplashScreen;
 

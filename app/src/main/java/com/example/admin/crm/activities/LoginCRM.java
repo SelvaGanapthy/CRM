@@ -1,4 +1,4 @@
-package com.example.admin.crm;
+package com.example.admin.crm.activities;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.admin.crm.R;
+import com.example.admin.crm.navigation.MainActivityNavigation;
+import com.example.admin.crm.ss;
+
 public class LoginCRM extends AppCompatActivity {
     EditText id_Username, id_Userpass;
     Button bt_Login;
@@ -15,7 +19,7 @@ public class LoginCRM extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newlead);
+        setContentView(R.layout.newlead_login);
         initialize();
     }
 
@@ -38,7 +42,7 @@ public class LoginCRM extends AppCompatActivity {
         }
         if (f1 && f2) {
             if (id_Username.getText().toString().equals("admin") && id_Userpass.getText().toString().equals("admin"))
-                startActivity(new Intent(LoginCRM.this, ss.class));
+                startActivity(new Intent(LoginCRM.this, MainActivityNavigation.class));
             else
                 Snackbar.make(view, "\t\t username & password was wrong", Snackbar.LENGTH_LONG).show();
 

@@ -35,7 +35,7 @@ public class CallReceiver extends PhonecallReceiver {
     static AlertDialog a, b, c, d;
     int[] img_id = {R.drawable.gokuls, R.drawable.emoji_happy, R.drawable.gokuls};
     String[] names = {"Gokul", "Iffan", "Karthick"};
-    String[] no = {"+917010915963", "+919884004900", "+918778268046"};
+    String[] no = {"+91701091596", "+919884004900", "+918778268046"};
 
     @Override
     protected void onIncomingCallStarted(final Context ctx, final String number, Date start) {

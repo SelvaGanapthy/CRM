@@ -92,11 +92,11 @@
         </RelativeLayout>
 
         <Button
-            android:layout_width="350dp"
+            android:layout_width="310dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:background="#4f6fe3"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/buttonshape"
             android:gravity="center"
             android:onClick="validate"
             android:id="@+id/bt_login"

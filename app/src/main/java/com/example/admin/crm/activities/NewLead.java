@@ -281,6 +281,7 @@ public class NewLead extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void onBackPressed() {
+//       When you backpress following functionality trigged
         if (include1.getVisibility() == View.VISIBLE) {
             Toast.makeText(getApplicationContext(), "getClosed", Toast.LENGTH_SHORT).show();
             this.finish();

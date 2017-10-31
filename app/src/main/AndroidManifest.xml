@@ -37,7 +37,6 @@
 
         <activity android:name=".activities.LoginCRM" />
         <activity android:name=".activities.NewLead" />
-        <activity android:name=".ss" />
         <activity
             android:name=".navigation.MainActivityNavigation"
             android:label="@string/title_activity_main_navigation"

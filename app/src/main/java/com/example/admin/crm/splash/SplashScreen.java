@@ -1,7 +1,9 @@
 package com.example.admin.crm.splash;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +15,6 @@ import android.widget.Toast;
 import com.example.admin.crm.activities.LoginCRM;
 import com.example.admin.crm.R;
 
-import gr.net.maroulis.library.EasySplashScreen;
 
 public class SplashScreen extends AppCompatActivity {
     public static final int requestcode_permisson = 1;
@@ -21,6 +22,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash_screen);
         if (checkPermisson())
             splash();
         else
@@ -67,12 +69,19 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void splash() {
-        EasySplashScreen screen = new EasySplashScreen(SplashScreen.this)
-                .withFullScreen()
-                .withSplashTimeOut(3000)
-                .withBackgroundResource(R.drawable.splashscreen)
-                .withTargetActivity(LoginCRM.class);
-        View v = screen.create();
-        setContentView(v);
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+                Intent i = new Intent(SplashScreen.this, LoginCRM.class);
+                startActivity(i);
+                finish();
+            }
+        }, 3000);
     }
 }

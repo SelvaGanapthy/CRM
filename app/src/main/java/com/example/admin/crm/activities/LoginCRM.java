@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import com.example.admin.crm.R;
 import com.example.admin.crm.navigation.MainActivityNavigation;
-import com.example.admin.crm.ss;
 
 public class LoginCRM extends AppCompatActivity {
     EditText id_Username, id_Userpass;

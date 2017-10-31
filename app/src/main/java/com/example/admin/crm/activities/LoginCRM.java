@@ -77,4 +77,22 @@ public class LoginCRM extends AppCompatActivity implements View.OnClickListener 
                 break;
         }
     }
+
+    public void onBackPressed() {
+        if (login_layout.getVisibility() == View.VISIBLE) {
+            login_layout.setVisibility(View.GONE);
+            getclient_layout.setVisibility(View.GONE);
+            verifypening_layout.setVisibility(View.VISIBLE);
+
+        } else if (verifypening_layout.getVisibility() == View.VISIBLE) {
+            login_layout.setVisibility(View.GONE);
+            getclient_layout.setVisibility(View.VISIBLE);
+            verifypening_layout.setVisibility(View.GONE);
+        }
+        else if(  getclient_layout.getVisibility()==View.VISIBLE)
+        {
+            Toast.makeText(getApplicationContext(), "getClosed", Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
+    }
 }

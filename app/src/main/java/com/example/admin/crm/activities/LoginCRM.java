@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.admin.crm.R;
 import com.example.admin.crm.navigation.MainActivityNavigation;
 
-public class LoginCRM extends AppCompatActivity {
+public class LoginCRM extends AppCompatActivity implements View.OnClickListener {
+    RelativeLayout getclient_layout, verifypening_layout;
+    ScrollView login_layout;
     EditText id_Username, id_Userpass;
-    Button bt_Login;
+    Button bt_Login, getclient_verify_bt, verifypend_close_bt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +29,16 @@ public class LoginCRM extends AppCompatActivity {
     }
 
     public void initialize() {
+        getclient_layout = (RelativeLayout) findViewById(R.id.getclient_layout);
+        verifypening_layout = (RelativeLayout) findViewById(R.id.verifypening_layout);
         id_Username = (EditText) findViewById(R.id.id_username);
         id_Userpass = (EditText) findViewById(R.id.id_userpass);
+        login_layout = (ScrollView) findViewById(R.id.login_layout);
         bt_Login = (Button) findViewById(R.id.bt_login);
+        getclient_verify_bt = (Button) findViewById(R.id.getclient_verify_bt);
+        verifypend_close_bt = (Button) findViewById(R.id.verifypend_close_bt);
+        verifypend_close_bt.setOnClickListener(this);
+        getclient_verify_bt.setOnClickListener(this);
     }
 
     public void validate(View view) {
@@ -49,4 +62,19 @@ public class LoginCRM extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.getclient_verify_bt:
+                getclient_layout.setVisibility(View.GONE);
+                verifypening_layout.setVisibility(View.VISIBLE);
+                login_layout.setVisibility(View.GONE);
+                break;
+            case R.id.verifypend_close_bt:
+                getclient_layout.setVisibility(View.GONE);
+                verifypening_layout.setVisibility(View.GONE);
+                login_layout.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
 }

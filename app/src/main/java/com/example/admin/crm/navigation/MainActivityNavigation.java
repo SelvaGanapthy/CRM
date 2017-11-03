@@ -6,11 +6,13 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +35,11 @@ public class MainActivityNavigation extends AppCompatActivity
     private static final int RESULT_LOAD_IMAGE = 1;
     NavigationView navigationView;
     CircleImageView navi_profile_pic;
+    private static final String TAG = MainActivityNavigation.class.getSimpleName();
+    private static final int REQUEST_CODE_PICK_CONTACTS = 2;
+    private Uri uriContact;
+    private String contactID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +52,7 @@ public class MainActivityNavigation extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar calendar;
-                int year, month, day;
-                calendar = Calendar.getInstance();
-                year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH);
-                day = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivityNavigation .this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                Snackbar.make(view, "Replace with your own action" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
-
-
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
+                startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI), REQUEST_CODE_PICK_CONTACTS);
             }
         });
 
@@ -91,18 +81,31 @@ public class MainActivityNavigation extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
+        if (requestCode == 1) {
+            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
 
-            navi_profile_pic.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                navi_profile_pic.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
+            }
+        } else {
+            if (requestCode == REQUEST_CODE_PICK_CONTACTS && resultCode == RESULT_OK) {
+                Log.d(TAG, "Response: " + data.toString());
+                uriContact = data.getData();
+
+                retrieveContactName();
+                retrieveContactNumber();
+//            retrieveContactPhoto();
+
+            }
         }
+
     }
 
     @Override
@@ -121,6 +124,72 @@ public class MainActivityNavigation extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main_activity_navigation, menu);
         return true;
     }
+
+    //    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//
+//    }
+    private void retrieveContactNumber() {
+
+        String contactNumber = null;
+
+        // getting contacts ID
+        Cursor cursorID = getContentResolver().query(uriContact,
+                new String[]{ContactsContract.Contacts._ID},
+                null, null, null);
+
+        if (cursorID.moveToFirst()) {
+
+            contactID = cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts._ID));
+        }
+
+        cursorID.close();
+
+        Log.d(TAG, "Contact ID: " + contactID);
+
+        // Using the contact ID now we will get contact phone number
+        Cursor cursorPhone = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER},
+
+                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " +
+                        ContactsContract.CommonDataKinds.Phone.TYPE + " = " +
+                        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
+
+                new String[]{contactID},
+                null);
+
+        if (cursorPhone.moveToFirst()) {
+            contactNumber = cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+        }
+
+        cursorPhone.close();
+
+        Log.d(TAG, "Contact Phone Number: " + contactNumber);
+    }
+
+    private void retrieveContactName() {
+
+        String contactName = null;
+
+        // querying contact data store
+        Cursor cursor = getContentResolver().query(uriContact, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+
+            // DISPLAY_NAME = The display name for the contact.
+            // HAS_PHONE_NUMBER =   An indicator of whether this contact has at least one phone number.
+
+            contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+        }
+
+        cursor.close();
+
+        Log.d(TAG, "Contact Name: " + contactName);
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

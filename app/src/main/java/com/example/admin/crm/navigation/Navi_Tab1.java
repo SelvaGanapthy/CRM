@@ -31,7 +31,7 @@ public class Navi_Tab1 extends Fragment {
         rv = (RecyclerView) view.findViewById(R.id.rv_recycler_view);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        rv.setAdapter(new Tab1_Data_Adapter(new String[]{"LEAD 1", "LEAD 2", "LEAD 3", "LEAD 4", "LEAD 5", "LEAD 6", "LEAD 7", "LEAD 8", "LEAD 9", "LEAD 10"}));
+        rv.setAdapter(new Tab1_Data_Adapter(Navi_Tab1.this,new String[]{"LEAD 1", "LEAD 2", "LEAD 3", "LEAD 4", "LEAD 5", "LEAD 6", "LEAD 7", "LEAD 8", "LEAD 9", "LEAD 10"}));
         return view;
     }
 }

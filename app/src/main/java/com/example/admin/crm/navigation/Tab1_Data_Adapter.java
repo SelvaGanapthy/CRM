@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.crm.R;
 
@@ -40,15 +41,24 @@ public class Tab1_Data_Adapter extends RecyclerView.Adapter<Tab1_Data_Adapter.Vi
         holder.tab1_msg_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, " " + data[position] + "PASS to the SMS", Snackbar.LENGTH_SHORT).show();
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage("+919884004900", null, "Hi This is would be test", null, null);
+//                Snackbar.make(view, " " + data[position] + "PASS to the SMS", Snackbar.LENGTH_SHORT).show();
+                try {
+
+                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+//            sendIntent.putExtra("sms_body", smstext.getText().toString());
+                    sendIntent.putExtra("address", "+91" + "9884004900");
+                    sendIntent.setType("vnd.android-dir/mms-sms");
+                    context.startActivity(sendIntent);
+                } catch (Exception e) {
+                    Toast.makeText(context.getContext(), "SMS faild, please try again later!", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
             }
         });
         holder.tab1_call_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, " " + data[position] + "Connect to CALL", Snackbar.LENGTH_SHORT).show();
+//                Snackbar.make(v, " " + data[position] + "Connect to CALL", Snackbar.LENGTH_SHORT).show();
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:+919884004900"));
                 context.startActivity(callIntent);

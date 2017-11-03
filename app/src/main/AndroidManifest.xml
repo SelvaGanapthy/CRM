@@ -40,7 +40,8 @@
         <activity
             android:name=".navigation.MainActivityNavigation"
             android:label="@string/title_activity_main_navigation"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".navigation.LeadContacts"></activity>
     </application>
 
 </manifest>

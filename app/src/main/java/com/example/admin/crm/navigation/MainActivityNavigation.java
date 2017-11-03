@@ -52,7 +52,7 @@ public class MainActivityNavigation extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivityNavigation.this, LeadContacts.class));
+                startActivity(new Intent(getApplicationContext(), LeadContacts.class));
             }
         });
 
